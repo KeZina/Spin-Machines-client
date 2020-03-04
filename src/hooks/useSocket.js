@@ -1,10 +1,9 @@
 import io from 'socket.io-client';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const useSocket = () => {
-    const [socket, setSocket] = useState({});
+    const [socket, setSocket] = useState(null);
 
-    const [goal, setGoal] = useState([]);
     const [matrix, setMatrix] = useState([]);
     const [progress, setProgress] = useState([]);
 
@@ -21,15 +20,13 @@ const useSocket = () => {
             socket.on('quests', data => {
                 const {type, payload} = data;
 
-                if(type === 'goal') setGoal(payload);
+                if(type === 'progress') setProgress(payload);
                 else if(type === 'matrix') setMatrix(payload);
-                else if(type === 'progress') setProgress(payload);
             })
         }
     }, [socket])
 
     return {
-        goal,
         matrix,
         progress,
         getMatrixAndProgress

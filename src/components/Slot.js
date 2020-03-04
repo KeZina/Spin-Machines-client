@@ -1,26 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { QuestsContext } from '../utils/context';
 
 const Slot = () => {
+    const quests = useContext(QuestsContext);
+    
+    console.log(quests)
+
+    const progress = quests.progress.map(quest => {
+        return (
+            <div>
+                <span>{`${quest.questType.replace('_', ' ').toUpperCase()}:`}</span>
+                {
+                    quest.isCompleted
+                    ?
+                    <span>Done</span>
+                    :
+                    <span>{`${quest.userQuestValue}/${quest.questValue}`}</span>
+                }
+            </div>
+        )
+    })
+
     return (
         <div id = 'slot'>
             <div id = 'display'>
                 <div id = 'quests'>
-                    <div>
-                      <span>Do Spin:</span>
-                      <span>0/0</span>
-                    </div>
-                    <div>
-                        <span>Spent Money:</span>
-                        <span>0/0</span>
-                    </div>
-                    <div>
-                        <span>3 Symbol In Row:</span>
-                        <span>0/0</span>
-                    </div>
-                   <div>
-                       <span>Rare Sybmol:</span>
-                       <span>0/0</span>
-                   </div>
+                   {progress}
                 </div>
                 <div id = 'spin'>
                     <div>
