@@ -3,8 +3,6 @@ import { SpinContext } from '../utils/context';
 
 const Slot = () => {
     const spin = useContext(SpinContext);
-
-    console.log(spin)
     
     const quests = spin.quests.map(quest => {
         return (
