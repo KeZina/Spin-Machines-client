@@ -1,15 +1,15 @@
 import React from 'react';
 import Slot from './Slot';
-import { QuestsContext } from '../utils/context';
+import { SpinContext } from '../utils/context';
 import useSocket from '../hooks/useSocket';
 
 const App = () => {
-  const quests = useSocket();
+  const spin = useSocket();
 
   return (
-    <QuestsContext.Provider value = {quests}>
+    <SpinContext.Provider value = {spin}>
       <Slot />
-    </QuestsContext.Provider>
+    </SpinContext.Provider>
   )
 }
 

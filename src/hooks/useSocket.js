@@ -4,12 +4,10 @@ import { useState, useEffect } from 'react';
 const useSocket = () => {
     const [socket, setSocket] = useState(null);
 
-    const [matrix, setMatrix] = useState([]);
-    const [progress, setProgress] = useState([]);
+    const [matrix, setMatrix] = useState(new Array(3).fill([]));
+    const [quests, setQuests] = useState([]);
 
-    const getMatrixAndProgress = () => {
-        socket.emit('quests', {type: 'getMatrixAndProgress'});
-    }
+    const getProgress = () => socket.emit('getProgress');
 
     useEffect(() => {
         setSocket(io('http://localhost:3003'));
@@ -18,18 +16,18 @@ const useSocket = () => {
     useEffect(() => {
         if(socket) {
             socket.on('quests', data => {
-                const {type, payload} = data;
+                const {quests, matrix} = data.progress;
 
-                if(type === 'progress') setProgress(payload);
-                else if(type === 'matrix') setMatrix(payload);
+                setMatrix(m => matrix || m);
+                setQuests(quests);
             })
         }
     }, [socket])
 
     return {
         matrix,
-        progress,
-        getMatrixAndProgress
+        quests,
+        getProgress
     }
 }
 

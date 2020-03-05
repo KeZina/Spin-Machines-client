@@ -1,3 +1,3 @@
 import { createContext } from "react";
 
-export const QuestsContext = createContext();
+export const SpinContext = createContext();

@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
-import { QuestsContext } from '../utils/context';
+import { SpinContext } from '../utils/context';
 
 const Slot = () => {
-    const quests = useContext(QuestsContext);
-    
-    console.log(quests)
+    const spin = useContext(SpinContext);
 
-    const progress = quests.progress.map(quest => {
+    console.log(spin)
+    
+    const quests = spin.quests.map(quest => {
         return (
             <div>
                 <span>{`${quest.questType.replace('_', ' ').toUpperCase()}:`}</span>
@@ -21,40 +21,28 @@ const Slot = () => {
         )
     })
 
+    const drum = spin.matrix.map(arr => {
+        return (
+            <div>
+                <span>{arr[0] || 0}</span>
+                <span>{arr[1] || 0}</span>
+                <span>{arr[2] || 0}</span>
+                <span>{arr[3] || 0}</span>
+                <span>{arr[4] || 0}</span>
+            </div>
+        )
+    })
+
     return (
         <div id = 'slot'>
             <div id = 'display'>
                 <div id = 'quests'>
-                   {progress}
+                   {quests}
                 </div>
                 <div id = 'spin'>
-                    <div>
-                        <span>0</span>
-                        <span>0</span>
-                        <span>0</span>
-                    </div>
-                    <div>
-                        <span>0</span>
-                        <span>0</span>
-                        <span>0</span>
-                    </div>
-                    <div>
-                        <span>0</span>
-                        <span>0</span>
-                        <span>0</span>
-                    </div>
-                    <div>
-                        <span>0</span>
-                        <span>0</span>
-                        <span>0</span>
-                    </div>
-                    <div>
-                        <span>0</span>
-                        <span>0</span>
-                        <span>0</span>
-                    </div>
+                    {drum}
                 </div>
-                <button id = 'shy-button'>
+                <button id = 'shy-button' onClick = {spin.getProgress}>
                     Spin!
                 </button>
             </div>
